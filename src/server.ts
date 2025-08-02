@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connectDatabase } from './config/database';
+import { setupSwagger } from './config/swagger';
 import { apiRoutes } from './routes';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { logger } from './utils/logger';
@@ -38,6 +39,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Setup Swagger documentation
+setupSwagger(app);
+
 // API routes
 app.use('/api/v1', apiRoutes);
 
@@ -60,14 +64,15 @@ const startServer = async (): Promise<void> => {
       });
       
       logger.info('Available endpoints:', {
-        health: `/api/v1/health`,
-        schoolRegister: `/api/v1/schools/register`,
-        schoolLogin: `/api/v1/schools/login`,
-        getAllSchools: `/api/v1/schools`,
-        studentRegister: `/api/v1/students/register`,
-        studentLogin: `/api/v1/students/login`,
-        refreshToken: `/api/v1/auth/refresh-token`,
-        logout: `/api/v1/auth/logout`
+        apiDocs: `http://localhost:${PORT}/api-docs`,
+        health: `http://localhost:${PORT}/api/v1/health`,
+        schoolRegister: `http://localhost:${PORT}/api/v1/schools/register`,
+        schoolLogin: `http://localhost:${PORT}/api/v1/schools/login`,
+        getAllSchools: `http://localhost:${PORT}/api/v1/schools`,
+        studentRegister: `http://localhost:${PORT}/api/v1/students/register`,
+        studentLogin: `http://localhost:${PORT}/api/v1/students/login`,
+        refreshToken: `http://localhost:${PORT}/api/v1/auth/refresh-token`,
+        logout: `http://localhost:${PORT}/api/v1/auth/logout`
       });
     });
   } catch (error) {

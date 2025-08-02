@@ -1,0 +1,294 @@
+{
+  "info": {
+    "name": "Genix Hub API",
+    "description": "Backend API for Indian School Hackathon Platform",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running"
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"message\": \"API is healthy\",\n  \"data\": {\n    \"status\": \"ok\",\n    \"timestamp\": \"2025-08-02T10:30:00.000Z\",\n    \"version\": \"1.0.0\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Schools",
+      "item": [
+        {
+          "name": "Register School",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Delhi Public School\",\n  \"password\": \"password123\",\n  \"confirmPassword\": \"password123\",\n  \"address\": \"123 School Street, Central Delhi\",\n  \"city\": \"New Delhi\",\n  \"state\": \"Delhi\",\n  \"pincode\": \"110001\",\n  \"principalName\": \"Dr. Rajesh Kumar\",\n  \"contactEmail\": \"principal@dpsdelhi.edu.in\",\n  \"contactPhone\": \"9876543210\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schools/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "register"]
+            },
+            "description": "Register a new school"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Delhi Public School\",\n  \"password\": \"password123\",\n  \"confirmPassword\": \"password123\",\n  \"address\": \"123 School Street, Central Delhi\",\n  \"city\": \"New Delhi\",\n  \"state\": \"Delhi\",\n  \"pincode\": \"110001\",\n  \"principalName\": \"Dr. Rajesh Kumar\",\n  \"contactEmail\": \"principal@dpsdelhi.edu.in\",\n  \"contactPhone\": \"9876543210\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/schools/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["schools", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Registration successful\",\n  \"data\": {\n    \"school\": {\n      \"id\": \"60d5ec49f8d2c72b8c8e4a1b\",\n      \"name\": \"Delhi Public School\",\n      \"city\": \"New Delhi\",\n      \"state\": \"Delhi\",\n      \"principalName\": \"Dr. Rajesh Kumar\",\n      \"contactEmail\": \"principal@dpsdelhi.edu.in\",\n      \"contactPhone\": \"9876543210\"\n    },\n    \"tokens\": {\n      \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n      \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login School",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Delhi Public School\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/schools/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools", "login"]
+            },
+            "description": "Login as a school"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Schools",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/schools?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["schools"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of schools per page"
+                }
+              ]
+            },
+            "description": "Get all schools with pagination"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Arjun Sharma\",\n  \"password\": \"password123\",\n  \"confirmPassword\": \"password123\",\n  \"schoolId\": \"60d5ec49f8d2c72b8c8e4a1b\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "register"]
+            },
+            "description": "Register a new student"
+          },
+          "response": []
+        },
+        {
+          "name": "Login Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Arjun Sharma\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "login"]
+            },
+            "description": "Login as a student"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "refresh-token"]
+            },
+            "description": "Refresh access token using refresh token"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "description": "Access token"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
+            },
+            "description": "Logout user (requires authentication)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string",
+      "description": "Store access token after login"
+    },
+    {
+      "key": "refreshToken",
+      "value": "",
+      "type": "string",
+      "description": "Store refresh token after login"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  }
+}
