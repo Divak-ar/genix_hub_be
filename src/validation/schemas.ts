@@ -14,18 +14,47 @@ export const studentRegistrationSchema = z.object({
   schoolId: z.string()
     .min(1, 'School selection is required')
     .regex(/^[0-9a-fA-F]{24}$/, 'Invalid school ID format'),
-  class: z.enum(['6', '7', '8', '9', '10', '11', '12'], {
-    errorMap: () => ({ message: 'Please select a valid class (6-12)' })
-  }),
-  section: z.enum(['A', 'B', 'C', 'D', 'E'], {
-    errorMap: () => ({ message: 'Please select a valid section (A-E)' })
-  }),
+  class: z.string()
+    .min(1, 'Class is required')
+    .max(10, 'Class must be less than 10 characters')
+    .trim(),
+  section: z.string()
+    .min(1, 'Section is required')
+    .max(5, 'Section must be less than 5 characters')
+    .trim(),
   gender: z.enum(['male', 'female'], {
     errorMap: () => ({ message: 'Please select a valid gender' })
   }),
   rollNo: z.string()
     .min(1, 'Roll number is required')
     .max(20, 'Roll number must be less than 20 characters')
+    .trim(),
+  mobile: z.string()
+    .regex(/^[6-9]\d{9}$/, 'Please enter a valid Indian mobile number')
+    .trim(),
+  fatherName: z.string()
+    .min(2, 'Father name must be at least 2 characters')
+    .max(100, 'Father name must be less than 100 characters')
+    .trim(),
+  motherName: z.string()
+    .min(2, 'Mother name must be at least 2 characters')
+    .max(100, 'Mother name must be less than 100 characters')
+    .trim(),
+  email: z.string()
+    .email('Please enter a valid email address')
+    .toLowerCase()
+    .trim(),
+  dateOfBirth: z.string()
+    .min(1, 'Date of birth is required')
+    .refine((val) => {
+      const date = new Date(val);
+      const now = new Date();
+      const age = now.getFullYear() - date.getFullYear();
+      return !isNaN(date.getTime()) && age >= 5 && age <= 25;
+    }, 'Please enter a valid date of birth (age should be between 5-25 years)'),
+  address: z.string()
+    .min(10, 'Address must be at least 10 characters')
+    .max(500, 'Address must be less than 500 characters')
     .trim()
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",

@@ -9,6 +9,12 @@ export interface IStudent extends Document {
   section: string;
   gender: string;
   rollNo: string;
+  mobile: string;
+  fatherName: string;
+  motherName: string;
+  email: string;
+  dateOfBirth: Date;
+  address: string;
   refreshToken?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -36,12 +42,12 @@ const studentSchema = new Schema<IStudent>({
   class: {
     type: String,
     required: true,
-    enum: ['6', '7', '8', '9', '10', '11', '12']
+    trim: true
   },
   section: {
     type: String,
     required: true,
-    enum: ['A', 'B', 'C', 'D', 'E'],
+    trim: true,
     uppercase: true
   },
   gender: {
@@ -54,6 +60,44 @@ const studentSchema = new Schema<IStudent>({
     type: String,
     required: true,
     trim: true
+  },
+  mobile: {
+    type: String,
+    required: true,
+    trim: true,
+    match: /^[6-9]\d{9}$/
+  },
+  fatherName: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 2,
+    maxlength: 100
+  },
+  motherName: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 2,
+    maxlength: 100
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 10,
+    maxlength: 500
   },
   refreshToken: {
     type: String,
@@ -68,6 +112,12 @@ studentSchema.index({ name: 1, schoolId: 1 }, { unique: true });
 
 // Compound unique index: roll number must be unique within a school and class
 studentSchema.index({ rollNo: 1, schoolId: 1, class: 1 }, { unique: true });
+
+// Email must be unique across all students
+studentSchema.index({ email: 1 }, { unique: true });
+
+// Mobile must be unique across all students
+studentSchema.index({ mobile: 1 }, { unique: true });
 
 // Hash password before saving
 studentSchema.pre('save', async function(next) {

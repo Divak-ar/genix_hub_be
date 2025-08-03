@@ -38,6 +38,12 @@ export interface StudentRegistration {
   section: string;
   gender: string;
   rollNo: string;
+  mobile: string;
+  fatherName: string;
+  motherName: string;
+  email: string;
+  dateOfBirth: string;
+  address: string;
 }
 
 export interface StudentLogin {

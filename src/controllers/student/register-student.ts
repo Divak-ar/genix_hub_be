@@ -27,11 +27,12 @@ export const registerStudent = async (
     }
     
     // Remove confirmPassword from the data before saving
-    const { confirmPassword, ...studentData } = validatedData;
+    const { confirmPassword, dateOfBirth, ...studentData } = validatedData;
     
-    // Create new student
+    // Create new student with dateOfBirth converted to Date object
     const student = new Student({
       ...studentData,
+      dateOfBirth: new Date(dateOfBirth),
       schoolId: new mongoose.Types.ObjectId(validatedData.schoolId)
     });
     
@@ -58,6 +59,12 @@ export const registerStudent = async (
           section: student.section,
           gender: student.gender,
           rollNo: student.rollNo,
+          mobile: student.mobile,
+          fatherName: student.fatherName,
+          motherName: student.motherName,
+          email: student.email,
+          dateOfBirth: student.dateOfBirth,
+          address: student.address,
           school: {
             id: school._id,
             name: school.name,

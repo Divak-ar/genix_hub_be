@@ -60,6 +60,12 @@ export const loginStudent = async (
           section: student.section,
           gender: student.gender,
           rollNo: student.rollNo,
+          mobile: student.mobile,
+          fatherName: student.fatherName,
+          motherName: student.motherName,
+          email: student.email,
+          dateOfBirth: student.dateOfBirth,
+          address: student.address,
           school: {
             id: school._id,
             name: school.name,
