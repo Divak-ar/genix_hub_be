@@ -34,6 +34,10 @@ export interface StudentRegistration {
   password: string;
   confirmPassword: string;
   schoolId: string;
+  class: string;
+  section: string;
+  gender: string;
+  rollNo: string;
 }
 
 export interface StudentLogin {

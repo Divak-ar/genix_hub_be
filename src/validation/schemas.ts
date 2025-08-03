@@ -13,7 +13,20 @@ export const studentRegistrationSchema = z.object({
   confirmPassword: z.string(),
   schoolId: z.string()
     .min(1, 'School selection is required')
-    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid school ID format')
+    .regex(/^[0-9a-fA-F]{24}$/, 'Invalid school ID format'),
+  class: z.enum(['6', '7', '8', '9', '10', '11', '12'], {
+    errorMap: () => ({ message: 'Please select a valid class (6-12)' })
+  }),
+  section: z.enum(['A', 'B', 'C', 'D', 'E'], {
+    errorMap: () => ({ message: 'Please select a valid section (A-E)' })
+  }),
+  gender: z.enum(['male', 'female'], {
+    errorMap: () => ({ message: 'Please select a valid gender' })
+  }),
+  rollNo: z.string()
+    .min(1, 'Roll number is required')
+    .max(20, 'Roll number must be less than 20 characters')
+    .trim()
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"]
